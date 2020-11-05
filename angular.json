@@ -24,7 +24,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "D:/Simplilearn/phase_2_project/phase-two-project/node_modules/bootstrap"
             ],
             "scripts": []
           },
