@@ -8,14 +8,17 @@ import { Quiz, Question, Answer } from '../quiz_structure';
 })
 export class QuizComponent extends Quiz implements OnInit {
 
-  index: number; //Current question that the user is on
+  private index: number; //Current question that the user is on
 
-  constructor() { 
+  constructor() {
     super();
+    this.index = 0;
   }
 
   ngOnInit(): void {
   }
+
+  getIndex(): number { return this.index; }
 
   first() { this.index = 0 };
   prev() { if (this.index > 0) this.index--; }

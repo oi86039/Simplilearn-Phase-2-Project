@@ -1,10 +1,21 @@
 <!--Time elapsed/Total Time-->
 <div id="Quiz Name">
-    <h3>Quiz Name: {{getQuizName()}}</h3>
+    <h4>{{getQuizName()}}</h4>
 </div>
 <!--Quiz View-->
     <!--Question Text-->
+<div>
+    <h3>Q{{getIndex()+1}}: {{getQuestion(getIndex()).getQuestionText()}}</h3>
+</div>
     <!--Answer 1-4 in column format-->
-<!--Review view-->
-    <!--All questions in table format-->
+    <ul>
+       <li *ngFor="let answer of getQuestion(getIndex()).getAnswers()">
+           <button (click)="answer.toggleSelect()">{{answer.getAnswerText()}}</button>
+       </li> 
+    </ul>
+
 <!--First, Prev, Next, Last-->
+<button (click)="first()">First</button>
+<button (click)="prev()">Previous</button>
+<button (click)="next()">Next</button>
+<button (click)="last()">Last</button>
