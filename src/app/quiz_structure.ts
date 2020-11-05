@@ -92,23 +92,25 @@ export class Quiz {
         this.score = 0;
         this.currentTime = 0;
         this.totalTime = Quiz1.timeLimit;
+        this.questions = new Array();
 
         //Populate Questions
         for (let i = 0; i < this.numOfQuestions; i++) {
             //Make list of answers
-            let answerList: Answer[];
+            let answers: Answer[]=new Array();
             for (let j = 0; j < Quiz1.questions[i].answers.length; j++) {
                 let a: Answer = new Answer(
                     Quiz1.questions[i].answers[j].answerText,
                     Quiz1.questions[i].answers[j].isCorrect
                 );
-                answerList[j] = a;
+                answers[j] = a;
             }
             //Make question with list of answers
             let q: Question = new Question(
                 Quiz1.questions[i].questionText,
-                answerList
+                answers
             );
+            this.questions[i] = q;
         }
     }
     getQuizName() {return this.quizName;}
