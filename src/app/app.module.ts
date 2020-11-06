@@ -5,6 +5,7 @@ import { QuizComponent } from './quiz/quiz.component';
 import { ReviewComponent } from './review/review.component';
 import { ResultComponent } from './result/result.component';
 import { ViewSelectComponent } from './view-select/view-select.component';
+import { QuizServiceService } from './quiz-service.service';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { ViewSelectComponent } from './view-select/view-select.component';
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [QuizServiceService],
   bootstrap: [ViewSelectComponent]
 })
 export class AppModule { }
