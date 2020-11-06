@@ -52,6 +52,6 @@ export class ViewSelectComponent implements OnInit {
 
     this.quizButtonIsActive = "hidden";
     this.reviewButtonIsActive = "hidden";
-    this.resultViewIsVisible = "hidden";
+    this.resultButtonIsActive = "hidden";
   }
 }
