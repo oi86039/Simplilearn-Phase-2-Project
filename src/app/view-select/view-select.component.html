@@ -1,1 +1,9 @@
-<p>view-select works!</p>
+<app-quiz class="{{quizViewIsVisible}}"></app-quiz>
+<app-review class="{{reviewViewIsVisible}}"></app-review>
+<app-result class="{{resultViewIsVisible}}"></app-result>
+
+<div>
+    <button class="{{quizButtonIsActive}}" (click)="ShowQuizView()">Quiz</button>
+    <button class="{{reviewButtonIsActive}}" (click)="ShowReviewView()">Review</button>
+    <button class="{{resultButtonIsActive}}" (click)="ShowResultView()">Submit Quiz</button>
+</div>

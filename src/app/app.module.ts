@@ -19,6 +19,6 @@ import { ViewSelectComponent } from './view-select/view-select.component';
     BrowserModule
   ],
   providers: [],
-  bootstrap: [QuizComponent]
+  bootstrap: [ViewSelectComponent]
 })
 export class AppModule { }

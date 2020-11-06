@@ -1,0 +1,20 @@
+.hidden{
+    display:none;
+}
+
+.visible{
+    display:inline;
+}
+
+.enabled{
+    color:black;
+}
+
+.disabled{
+    cursor: not-allowed;
+    pointer-events: none;
+
+    /*Button disabled - CSS color class*/
+    color: #c0c0c0;
+    background-color: #ffffff;
+}
