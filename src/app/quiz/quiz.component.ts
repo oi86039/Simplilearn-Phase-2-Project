@@ -1,5 +1,6 @@
+import { CommonModule } from '@angular/common'
 import { Component, OnInit } from '@angular/core';
-import { Quiz, Question, Answer } from '../quiz_structure';
+import { Quiz } from '../quiz_structure';
 
 @Component({
   selector: 'app-quiz',
@@ -19,6 +20,13 @@ export class QuizComponent extends Quiz implements OnInit {
   }
 
   getIndex(): number { return this.index; }
+
+  ifMarkedForReview(){
+    if(this.getQuestion(this.index).checkIfMarkedForReview())
+    return "Marked For Review";
+    else
+    return "";
+  }
 
   first() { this.index = 0 };
   prev() { if (this.index > 0) this.index--; }

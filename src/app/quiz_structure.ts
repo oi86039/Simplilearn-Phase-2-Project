@@ -4,21 +4,32 @@ export class Answer {
     private answerText: string; //The Answer
     private correct: boolean; //Is this answer correct?
     private selected: boolean; //Did the user select this answer?
+    private ansButtonClass: string; //The css class of the button (to change colors)
 
     constructor(answerText: string, correct: boolean) {
         this.answerText = answerText;
         this.correct = correct;
         this.selected = false; //Always start as unselected
+        this.ansButtonClass = 'answer-unSelected';
     }
     getAnswerText() { return this.answerText };
+    getButtonColor() {return this.ansButtonClass };
 
     checkIfUserCorrect() { return (this.correct && this.selected); }
     checkIfCorrect() { return this.correct; }
     checkIfSelected() { return this.selected; }
 
-    toggleSelect() { this.selected = !this.selected; }
-    select() { this.selected = true; }
-    deselect() { this.selected = false; }
+    toggleSelect() {
+        this.selected = !this.selected;
+        if (this.selected) this.ansButtonClass = 'answer-selected'
+        else this.ansButtonClass = 'answer-unSelected';
+    }
+    select() {
+        this.selected = true; this.ansButtonClass = 'answer-selected';
+    }
+    deselect() {
+        this.selected = false; this.ansButtonClass = 'answer-unSelected';
+    }
 }
 
 export class Question {
@@ -37,9 +48,20 @@ export class Question {
     }
 
     getQuestionText() { return this.questionText; }
-    getNumOfAnswers() {return this.numOfAnswers;}
+    getNumOfAnswers() { return this.numOfAnswers; }
     checkIfAnswered() { return this.answered; }
     checkIfMarkedForReview() { return this.markedForReview; }
+
+    SetAnswered() {
+        for (let i = 0; i < this.answers.length; i++) {
+            if (this.answers[i].checkIfSelected()) {
+                this.answered = true;
+                return true;
+            };
+        }
+        this.answered = false;
+        return false;
+    }
 
     markAnswered() { this.answered = true; }
     markUnanswered() { this.answered = false }
@@ -50,19 +72,19 @@ export class Question {
             console.log("Error: cannot get answer.");
         else return this.answers[index];
     }
-    getAnswers() {return this.answers;}
+    getAnswers() { return this.answers; }
 
-    selectAnswer(index: number) {
-        if (index > this.answers.length - 1 || index < 0)
-            console.log("Error: Cannot select answer");
-        else {
-            //Disable all
-            for (let i = 0; i < this.answers.length; i++) {
-                this.answers[i].deselect();
-            }
-            //Then toggleSelect index given
-            this.answers[index].toggleSelect();
+    selectAnswer(answer: Answer) {
+
+        //Disable all
+        for (let i = 0; i < this.answers.length; i++) {
+            this.answers[i].deselect();
         }
+        //Then toggleSelect index given (bug: just selects)
+        answer.toggleSelect();
+        //Check if questions is answered
+        this.SetAnswered();
+
     }
     checkIfUserCorrect() {
         if (!this.answered) return false;
@@ -78,6 +100,8 @@ export class Question {
 
 export class Quiz {
     private quizName: string; //Name of the quiz
+    private numOfAnswered: number; //Number of questions answered
+    private numOfMarkedForReview; //Number of questions marked for Review
     private numOfQuestions: number; //Number of Total Questions
     private score: number; //Number of Correct Questions
     private currentTime: number; //time elapsed in seconds
@@ -87,6 +111,8 @@ export class Quiz {
     constructor() {
         //Get other properties
         this.quizName = Quiz1.quizName;
+        this.numOfAnswered = 0;
+        this.numOfMarkedForReview=0;
         this.numOfQuestions = Quiz1.questions.length;
         this.score = 0;
         this.currentTime = 0;
@@ -113,6 +139,22 @@ export class Quiz {
         }
     }
     getQuizName() { return this.quizName; }
+    getNumOfAnswered() { 
+        this.numOfAnswered=0;
+        for (let i = 0; i < this.questions.length; i++) {
+            if (this.questions[i].checkIfAnswered())
+            this.numOfAnswered++;
+        }
+        return this.numOfAnswered;
+    }
+    getNumOfMarkedForReview() {
+        this.numOfMarkedForReview=0;
+        for (let i = 0; i < this.questions.length; i++) {
+            if (this.questions[i].checkIfMarkedForReview())
+            this.numOfMarkedForReview++;
+        }
+        return this.numOfMarkedForReview;
+    }
     getNumOfQuestions() { return this.numOfQuestions; }
     getScore() { return this.score; }
     getScoreFraction() { return this.score + "/" + this.numOfQuestions }

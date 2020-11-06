@@ -1,18 +1,27 @@
 <!--Time elapsed/Total Time-->
-<div id="Quiz Name">
-    <h4>{{getQuizName()}}</h4>
+<!--Quiz Name + Questions Answered-->
+<div>
+    <h4>{{getQuizName()}} - Questions Answered: {{getNumOfAnswered()}}/{{getNumOfQuestions()}} - Marked For Review: {{getNumOfMarkedForReview()}}</h4>
 </div>
 <!--Quiz View-->
     <!--Question Text-->
 <div>
     <h3>Q{{getIndex()+1}}: {{getQuestion(getIndex()).getQuestionText()}}</h3>
+    <div style="color:purple;">{{ifMarkedForReview()}}</div>
+    <!--Marked for Review Text-->
 </div>
     <!--Answer 1-4 in column format-->
     <ul>
        <li *ngFor="let answer of getQuestion(getIndex()).getAnswers()">
-           <button (click)="answer.toggleSelect()">{{answer.getAnswerText()}}</button>
+           <button class="{{answer.getButtonColor()}}" (click)="getQuestion(getIndex()).selectAnswer(answer)">{{answer.getAnswerText()}}</button>
        </li> 
     </ul>
+
+
+<!--Mark For Review Button-->
+<div>
+<button (click)="getQuestion(getIndex()).toggleMarkedForReview()">Mark for Review</button>
+</div>
 
 <!--First, Prev, Next, Last-->
 <button (click)="first()">First</button>
