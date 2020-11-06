@@ -7,10 +7,18 @@ import { Quiz } from './quiz_structure';
 @Injectable({
   providedIn: 'root'
 })
-export class QuizServiceService extends Quiz{
-  
-  constructor() { 
+export class QuizServiceService extends Quiz {
+
+  private index: number; //The current question the user is on
+
+  constructor() {
     super();
+    this.index = 0;
   }
   //This should now have all of the functions of the Quiz object
+  getIndex() { return this.index; }
+  setIndex(newIndex: number) { this.index = newIndex; }
+  incrementIndex() { this.index++;}
+  decrementIndex() { this.index--;}
+
 }

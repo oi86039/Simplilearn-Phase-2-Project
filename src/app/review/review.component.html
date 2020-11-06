@@ -1,3 +1,9 @@
 <!--Review view-->
     <!--All questions in table format-->
-    <p>{{getQuizName()}}</p>
+    <table>
+        <tbody>
+            <tr *ngFor="let question of getQuestions()">
+                <td><button (click)="GoToQuestion(getQuestionNum(question))">Q{{getQuestionNum(question)+1}}: {{getIfQuestionTouched(question)}}</button></td>
+            </tr>
+        </tbody>
+    </table>

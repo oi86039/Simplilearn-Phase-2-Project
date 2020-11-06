@@ -166,4 +166,11 @@ export class Quiz {
             console.log("Error: Cannot get question.");
         else return this.questions[index];
     }
+    getQuestions(){return this.questions;}
+    getQuestionNum(question) {
+        for (let i=0; i< this.questions.length;i++){
+            if (question==this.questions[i]) return i;
+        }
+        console.log ("Question not found. This should not happen.");
+        }
 }

@@ -1,3 +1,8 @@
+<!--Quiz Name + Questions Answered-->
+<div>
+    <h4>{{getQuizName()}} - Questions Answered: {{getNumOfAnswered()}}/{{getNumOfQuestions()}} - Marked For Review: {{getNumOfMarkedForReview()}}</h4>
+</div>
+
 <app-quiz class="{{quizViewIsVisible}}"></app-quiz>
 <app-review class="{{reviewViewIsVisible}}"></app-review>
 <app-result class="{{resultViewIsVisible}}"></app-result>

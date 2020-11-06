@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { QuizServiceService } from '../quiz-service.service';
 
 @Component({
   selector: 'view-select',
@@ -18,7 +19,7 @@ export class ViewSelectComponent implements OnInit {
   resultButtonIsActive: string; //If true, cannot click review button
 
   //When view first starts
-  constructor() {
+  constructor(private quizService:QuizServiceService) {
     this.quizViewIsVisible = "visible";
     this.reviewViewIsVisible = "hidden";
     this.resultViewIsVisible = "hidden";
@@ -31,6 +32,7 @@ export class ViewSelectComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  //ViewSelect functions
   ShowQuizView() {
     this.quizViewIsVisible = "visible";
     this.reviewViewIsVisible = "hidden";
@@ -54,4 +56,16 @@ export class ViewSelectComponent implements OnInit {
     this.reviewButtonIsActive = "hidden";
     this.resultButtonIsActive = "hidden";
   }
+
+  //Quiz Service Wrapper Functions
+  getQuizName() { return this.quizService.getQuizName(); }
+  getNumOfAnswered() { return this.quizService.getNumOfAnswered(); }
+  getNumOfMarkedForReview() { return this.quizService.getNumOfMarkedForReview(); }
+  getNumOfQuestions() { return this.quizService.getNumOfQuestions(); }
+  getScore() { return this.quizService.getScore(); }
+  getScoreFraction() { return this.quizService.getScoreFraction(); }
+  getCurrentTime() { return this.quizService.getCurrentTime(); }
+  getTotalTime() { return this.quizService.getTotalTime(); }
+  getQuestion(index: number) { return this.quizService.getQuestion(index); }
 }
+

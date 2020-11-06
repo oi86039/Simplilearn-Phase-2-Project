@@ -17,7 +17,8 @@ import { QuizServiceService } from './quiz-service.service';
   imports: [
     BrowserModule
   ],
-  providers: [QuizServiceService],
+  providers: [QuizServiceService,
+    ViewSelectComponent],
   bootstrap: [ViewSelectComponent]
 })
 export class AppModule { }
