@@ -1,7 +1,7 @@
+import { CommonModule } from '@angular/common'
 import { Component, OnInit } from '@angular/core';
 import { QuizServiceService } from '../quiz-service.service';
 import { Question } from '../quiz_structure';
-import { QuizComponent } from '../quiz/quiz.component'
 import { ViewSelectComponent } from '../view-select/view-select.component'
 
 
@@ -12,7 +12,7 @@ import { ViewSelectComponent } from '../view-select/view-select.component'
 })
 export class ReviewComponent implements OnInit {
 
-  constructor(private quizService: QuizServiceService, private viewSelect: ViewSelectComponent,) {
+  constructor(private quizService: QuizServiceService,    private viewSelect: ViewSelectComponent,) {
   }
 
   ngOnInit(): void {
@@ -41,8 +41,8 @@ export class ReviewComponent implements OnInit {
   getQuestionNum(question: Question) { return this.quizService.getQuestionNum(question); }
 
   //Click on button to go to the quiz view at that question.
-  GoToQuestion(index: number) {
+  GoToQuestion(index:number) {
     this.quizService.setIndex(index);
-    this.viewSelect.ShowQuizView();
+      this.viewSelect.ShowQuizView();
   }
 }

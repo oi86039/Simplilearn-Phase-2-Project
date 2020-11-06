@@ -13,9 +13,8 @@ export class Answer {
         this.ansButtonClass = 'answer-unSelected';
     }
     getAnswerText() { return this.answerText };
-    getButtonColor() {return this.ansButtonClass };
+    getButtonColor() { return this.ansButtonClass };
 
-    checkIfUserCorrect() { return (this.correct && this.selected); }
     checkIfCorrect() { return this.correct; }
     checkIfSelected() { return this.selected; }
 
@@ -86,13 +85,14 @@ export class Question {
         this.SetAnswered();
 
     }
+
     checkIfUserCorrect() {
         if (!this.answered) return false;
         else {
             for (let i of this.answers) {
-                if (i.checkIfUserCorrect()) return true;
+                if (i.checkIfCorrect() && i.checkIfSelected()) return true;
             }
-            return false; //If none are true, user is incorrect
+         return false; //If none are true, user is incorrect
         }
     }
 
@@ -112,7 +112,7 @@ export class Quiz {
         //Get other properties
         this.quizName = Quiz1.quizName;
         this.numOfAnswered = 0;
-        this.numOfMarkedForReview=0;
+        this.numOfMarkedForReview = 0;
         this.numOfQuestions = Quiz1.questions.length;
         this.score = 0;
         this.currentTime = 0;
@@ -139,25 +139,33 @@ export class Quiz {
         }
     }
     getQuizName() { return this.quizName; }
-    getNumOfAnswered() { 
-        this.numOfAnswered=0;
+    getNumOfAnswered() {
+        this.numOfAnswered = 0;
         for (let i = 0; i < this.questions.length; i++) {
             if (this.questions[i].checkIfAnswered())
-            this.numOfAnswered++;
+                this.numOfAnswered++;
         }
         return this.numOfAnswered;
     }
     getNumOfMarkedForReview() {
-        this.numOfMarkedForReview=0;
+        this.numOfMarkedForReview = 0;
         for (let i = 0; i < this.questions.length; i++) {
             if (this.questions[i].checkIfMarkedForReview())
-            this.numOfMarkedForReview++;
+                this.numOfMarkedForReview++;
         }
         return this.numOfMarkedForReview;
     }
     getNumOfQuestions() { return this.numOfQuestions; }
-    getScore() { return this.score; }
-    getScoreFraction() { return this.score + "/" + this.numOfQuestions }
+    getScore() {
+        this.score = 0;
+        for (let i = 0; i < this.questions.length; i++) {
+            if (this.questions[i].checkIfUserCorrect()) {
+                this.score++;
+            }
+        }
+        return this.score;
+    }
+    getScoreFraction() { return this.getScore() + "/" + this.numOfQuestions }
     getCurrentTime() { return this.currentTime; }
     getTotalTime() { return this.totalTime; }
 
@@ -166,11 +174,11 @@ export class Quiz {
             console.log("Error: Cannot get question.");
         else return this.questions[index];
     }
-    getQuestions(){return this.questions;}
+    getQuestions() { return this.questions; }
     getQuestionNum(question) {
-        for (let i=0; i< this.questions.length;i++){
-            if (question==this.questions[i]) return i;
+        for (let i = 0; i < this.questions.length; i++) {
+            if (question == this.questions[i]) return i;
         }
-        console.log ("Question not found. This should not happen.");
-        }
+        console.log("Question not found. This should not happen.");
+    }
 }
