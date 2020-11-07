@@ -13,3 +13,9 @@
     text-decoration: line-through;
     font-weight: bold;
 }
+
+.question-center{
+    float: none;
+    margin-left: 20%;
+    margin-right: 20%;
+}

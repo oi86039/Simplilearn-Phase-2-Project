@@ -28,6 +28,7 @@ export class ReviewComponent implements OnInit {
     else
       return "Not Answered";
   }
+  getQuestionColor(question:Question) {return question.getButtonColor();}
 
   //Quiz Service Wrapper Functions
   getQuizName() { return this.quizService.getQuizName(); }

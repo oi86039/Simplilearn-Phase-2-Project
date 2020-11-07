@@ -10,24 +10,24 @@ export class Answer {
         this.answerText = answerText;
         this.correct = correct;
         this.selected = false; //Always start as unselected
-        this.ansButtonClass = 'answer-unSelected';
+        this.ansButtonClass = 'btn-light';
     }
-    getAnswerText() { return this.answerText };
-    getButtonColor() { return this.ansButtonClass };
+    getAnswerText() { return this.answerText ;}
+    getButtonColor() { return this.ansButtonClass ;}
 
     checkIfCorrect() { return this.correct; }
     checkIfSelected() { return this.selected; }
 
     toggleSelect() {
         this.selected = !this.selected;
-        if (this.selected) this.ansButtonClass = 'answer-selected'
-        else this.ansButtonClass = 'answer-unSelected';
+        if (this.selected) this.ansButtonClass = 'btn-primary'
+        else this.ansButtonClass = 'btn-light';
     }
     select() {
-        this.selected = true; this.ansButtonClass = 'answer-selected';
+        this.selected = true; this.ansButtonClass = 'btn-primary';
     }
     deselect() {
-        this.selected = false; this.ansButtonClass = 'answer-unSelected';
+        this.selected = false; this.ansButtonClass = 'btn-light';
     }
 }
 
@@ -37,6 +37,8 @@ export class Question {
     private markedForReview: boolean; //Override answered bool; did user mark for review
     private numOfAnswers: number; //Number of answers in list
     private answers: Answer[]; //List of all answers
+    private quesButtonClass: string; //The css class of the button (to change colors)
+
 
     constructor(questionText: string, answers: Answer[]) {
         this.questionText = questionText;
@@ -44,9 +46,11 @@ export class Question {
         this.numOfAnswers = this.answers.length;
         this.answered = false; //Question should start unanswered
         this.markedForReview = false; //Question should start unmarked
+        this.quesButtonClass = "btn-dark" //Question should start unanswered
     }
 
     getQuestionText() { return this.questionText; }
+    getButtonColor() {return this.quesButtonClass;}
     getNumOfAnswers() { return this.numOfAnswers; }
     checkIfAnswered() { return this.answered; }
     checkIfMarkedForReview() { return this.markedForReview; }
@@ -55,6 +59,8 @@ export class Question {
         for (let i = 0; i < this.answers.length; i++) {
             if (this.answers[i].checkIfSelected()) {
                 this.answered = true;
+                if (!this.checkIfMarkedForReview()) //Turn blue if not marked for review
+                    this.quesButtonClass="btn-success";
                 return true;
             };
         }
@@ -64,7 +70,16 @@ export class Question {
 
     markAnswered() { this.answered = true; }
     markUnanswered() { this.answered = false }
-    toggleMarkedForReview() { this.markedForReview = !this.markedForReview; }
+    toggleMarkedForReview() { 
+        this.markedForReview = !this.markedForReview;
+        if (this.markedForReview){
+            this.quesButtonClass="btn-purple";
+        }
+        else if (this.checkIfAnswered())
+        {this.quesButtonClass="btn-success";}
+        else
+        this.quesButtonClass="btn-dark";
+     }
 
     getAnswer(index: number) {
         if (index > this.answers.length - 1 || index < 0)
