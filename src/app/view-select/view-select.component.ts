@@ -19,7 +19,7 @@ export class ViewSelectComponent implements OnInit {
   resultButtonIsActive: string; //If true, cannot click review button
 
   //When view first starts
-  constructor(private quizService:QuizServiceService) {
+  constructor(private quizService: QuizServiceService) {
     this.quizViewIsVisible = "visible";
     this.reviewViewIsVisible = "hidden";
     this.resultViewIsVisible = "hidden";
@@ -48,24 +48,34 @@ export class ViewSelectComponent implements OnInit {
     this.reviewButtonIsActive = "disabled";
   }
   ShowResultView() {
-    this.quizViewIsVisible = "hidden";
-    this.reviewViewIsVisible = "hidden";
-    this.resultViewIsVisible = "visible";
+    //Confirm submission (different message if not all answers are answered)
+    let msg="";
+    if (this.quizService.getNumOfAnswered() < this.quizService.getNumOfQuestions()) 
+      msg = "Warning: Not all questions are finished. Are you sure you want to submit your test?";
+    else 
+      msg = "Are you sure you want to submit your test?";
+      if (!confirm(msg))
+        return;
+    
+      //Only do this if confirmed
+      this.quizViewIsVisible = "hidden";
+      this.reviewViewIsVisible = "hidden";
+      this.resultViewIsVisible = "visible";
 
-    this.quizButtonIsActive = "hidden";
-    this.reviewButtonIsActive = "hidden";
-    this.resultButtonIsActive = "hidden";
+      this.quizButtonIsActive = "hidden";
+      this.reviewButtonIsActive = "hidden";
+      this.resultButtonIsActive = "hidden";
+    }
+
+    //Quiz Service Wrapper Functions
+    getQuizName() { return this.quizService.getQuizName(); }
+    getNumOfAnswered() { return this.quizService.getNumOfAnswered(); }
+    getNumOfMarkedForReview() { return this.quizService.getNumOfMarkedForReview(); }
+    getNumOfQuestions() { return this.quizService.getNumOfQuestions(); }
+    getScore() { return this.quizService.getScore(); }
+    getScoreFraction() { return this.quizService.getScoreFraction(); }
+    getCurrentTime() { return this.quizService.getCurrentTime(); }
+    getTotalTime() { return this.quizService.getTotalTime(); }
+    getQuestion(index: number) { return this.quizService.getQuestion(index); }
   }
-
-  //Quiz Service Wrapper Functions
-  getQuizName() { return this.quizService.getQuizName(); }
-  getNumOfAnswered() { return this.quizService.getNumOfAnswered(); }
-  getNumOfMarkedForReview() { return this.quizService.getNumOfMarkedForReview(); }
-  getNumOfQuestions() { return this.quizService.getNumOfQuestions(); }
-  getScore() { return this.quizService.getScore(); }
-  getScoreFraction() { return this.quizService.getScoreFraction(); }
-  getCurrentTime() { return this.quizService.getCurrentTime(); }
-  getTotalTime() { return this.quizService.getTotalTime(); }
-  getQuestion(index: number) { return this.quizService.getQuestion(index); }
-}
 
